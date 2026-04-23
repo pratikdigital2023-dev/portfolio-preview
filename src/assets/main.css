@@ -1030,7 +1030,7 @@ section{position:relative;}
   font-size:clamp(36px, 5vw, 72px);
   color:var(--ink);
   white-space:nowrap;
-  animation:ticker 90s linear infinite;
+  animation:ticker 160s linear infinite;
   line-height:1.1;
 }
 .disc-track span{flex:none;}
@@ -1346,3 +1346,259 @@ a, button { -webkit-tap-highlight-color: transparent; }
 
 /* Crisper text on Windows/Chrome */
 body { font-optical-sizing: auto; }
+
+/* ═════════════════════════════════════════════════════════════
+   AWWWARDS MAGIC · Outrenoir as through-line
+   ═════════════════════════════════════════════════════════════ */
+
+/* ─── 01. Raking Light · scroll-linked warm sweep across the page ─── */
+.raking-light {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: soft-light;
+  opacity: 0;
+  background:
+    radial-gradient(
+      ellipse 88% 22% at 50% calc(var(--rake-y, 50) * 1%),
+      rgba(255, 228, 188, 0.35) 0%,
+      rgba(255, 212, 158, 0.14) 30%,
+      transparent 60%
+    );
+  transition: opacity 1.2s ease;
+  will-change: opacity;
+}
+.raking-light.on { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .raking-light { display: none; } }
+
+/* ─── 02. Two-layer grain · adds depth. First layer is the existing fine grain ─── */
+.grain-coarse {
+  position: fixed; inset: -30%;
+  pointer-events: none;
+  z-index: 99;
+  opacity: 0.055;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='340'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.42' numOctaves='2' stitchTiles='stitch' seed='8'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.07  0 0 0 0 0.06  0 0 0 .85 0'/></filter><rect width='100%' height='100%' filter='url(%23p)'/></svg>");
+  background-size: 340px 340px;
+}
+@media (prefers-reduced-motion: reduce) { .grain-coarse { opacity: .04; } }
+html[data-grain="false"] .grain-coarse { display: none; }
+
+/* ─── 03. Ember bloom · halo that lingers after hover ─── */
+@keyframes emberBloom {
+  0% { box-shadow: 0 0 0 0 rgba(138, 59, 24, 0); }
+  30% { box-shadow: 0 0 28px 4px rgba(180, 84, 45, 0.28); }
+  100% { box-shadow: 0 0 0 0 rgba(138, 59, 24, 0); }
+}
+.nav ul a,
+.sw-read,
+.ct-block a.val,
+.pr-card,
+.vert,
+.next-link,
+.recog-card,
+.sw-row .sw-title {
+  position: relative;
+}
+/* link underline is now ember and animated via mask */
+.nav ul a::after { background: var(--accent); }
+@media (hover: hover) {
+  .nav ul a:hover,
+  .sw-read:hover,
+  .ct-block a.val:hover,
+  .next-link:hover,
+  .vert:hover,
+  .pr-card:hover,
+  .recog-card:hover {
+    animation: emberBloom 2.4s cubic-bezier(.22,1,.36,1) forwards;
+  }
+}
+
+/* ─── 04. Cursor aperture · replaces the old ring ─── */
+.aperture {
+  position: fixed;
+  top: 0; left: 0;
+  width: 1px; height: 1px;
+  pointer-events: none;
+  z-index: 90;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  mix-blend-mode: soft-light;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.aperture::before {
+  content: "";
+  position: absolute; inset: 0;
+  transform: translate(-50%, -50%);
+  width: calc(var(--ap-size, 160) * 1px);
+  height: calc(var(--ap-size, 160) * 1px);
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(239, 232, 216, 0.10) 0%,
+      rgba(239, 232, 216, 0.04) 40%,
+      transparent 70%
+    );
+  filter: blur(6px);
+  transition: width .55s cubic-bezier(.22,1,.36,1), height .55s cubic-bezier(.22,1,.36,1);
+}
+.aperture.on { opacity: 1; }
+.aperture.hov::before { width: calc(var(--ap-size, 160) * 1.8px); height: calc(var(--ap-size, 160) * 1.8px); }
+@media (hover: none) { .aperture { display: none !important; } }
+@media (prefers-reduced-motion: reduce) { .aperture { display: none; } }
+
+/* paragraphs get a subtle weight/tracking shift when aperture is near
+   implemented via JS adding .ap-hit on proximity — here's the CSS */
+p.ap-hit, .chap-body p.ap-hit, .man-body p.ap-hit {
+  transition: letter-spacing 0.5s cubic-bezier(.22,1,.36,1), color 0.5s ease;
+  letter-spacing: 0.008em;
+  color: var(--ink);
+}
+
+/* ─── 05. Type proximity · hero name breathes with cursor distance ─── */
+.hero-name {
+  /* small tracking shift tied to proximity — 0 to 0.6% max */
+  letter-spacing: calc(-0.02em + var(--prox, 0) * 0.006em);
+  transition: letter-spacing 0.35s cubic-bezier(.22,1,.36,1);
+}
+
+/* ─── 06. Polaroid image reveal ─── */
+.polaroid-in {
+  position: relative;
+  overflow: hidden;
+}
+.polaroid-in::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    rgba(239, 215, 178, 0.15) 0%,
+    rgba(255, 230, 195, 0.22) 8%,
+    rgba(255, 230, 195, 0) 16%,
+    transparent 100%
+  );
+  transform: translateY(-100%);
+  pointer-events: none;
+  z-index: 1;
+}
+.polaroid-in.go::after {
+  animation: polaroidWipe 1.6s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes polaroidWipe {
+  0% { transform: translateY(-100%); opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+/* the image itself fades + scales while the wipe passes */
+.polaroid-in > img,
+.polaroid-in .ph {
+  filter: brightness(0.7) contrast(1.05);
+  transform: scale(1.035);
+  transition: filter 1.8s cubic-bezier(.22,1,.36,1), transform 2.2s cubic-bezier(.22,1,.36,1);
+}
+.polaroid-in.go > img,
+.polaroid-in.go .ph {
+  filter: brightness(1) contrast(1);
+  transform: scale(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .polaroid-in::after { display: none; }
+  .polaroid-in > img, .polaroid-in .ph { filter: none; transform: none; }
+}
+
+/* ─── 07. Reading mode · collapse to dense editorial column ─── */
+.rm-toggle {
+  position: fixed; top: 24px; right: 24px; z-index: 180;
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .24em;
+  text-transform: uppercase; color: var(--ink-3);
+  background: transparent; border: 1px solid var(--rule);
+  padding: 10px 14px; border-radius: 999px;
+  cursor: pointer;
+  transition: color .4s ease, border-color .4s ease, background .4s ease;
+  backdrop-filter: blur(4px);
+}
+.rm-toggle:hover { color: var(--ink); border-color: var(--ink-3); }
+.rm-toggle .dot {
+  display: inline-block; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--accent);
+  margin-right: 8px; vertical-align: 1px;
+}
+html[data-rm="true"] .rm-toggle { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+/* Reading mode: simplify aggressively */
+html[data-rm="true"] .grain,
+html[data-rm="true"] .grain-coarse,
+html[data-rm="true"] .raking-light,
+html[data-rm="true"] .lens,
+html[data-rm="true"] .aperture,
+html[data-rm="true"] .hero-portrait,
+html[data-rm="true"] .montage,
+html[data-rm="true"] .signature,
+html[data-rm="true"] .signature-2,
+html[data-rm="true"] .disc,
+html[data-rm="true"] .sw-img,
+html[data-rm="true"] .scroll-ind,
+html[data-rm="true"] #tweaks-panel { display: none !important; }
+html[data-rm="true"] .hero { min-height: auto; padding: 140px 20px 80px; }
+html[data-rm="true"] body {
+  max-width: 680px;
+  margin: 0 auto;
+  background: #0e0d0b;
+}
+html[data-rm="true"] .man-grid,
+html[data-rm="true"] .rec-head,
+html[data-rm="true"] .chapter,
+html[data-rm="true"] .met-grid,
+html[data-rm="true"] .form-grid,
+html[data-rm="true"] .pr-grid,
+html[data-rm="true"] .recog-grid,
+html[data-rm="true"] .ct-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+html[data-rm="true"] .sw-row { grid-template-columns: 1fr; min-height: auto; }
+html[data-rm="true"] .sw-info { border-left: none; padding: 24px 0; }
+html[data-rm="true"] h2, html[data-rm="true"] h3 { letter-spacing: -.012em; }
+
+/* ─── 08. Alternating numerals · drop every other section's numeral ─── */
+.sec-label .num.hide-num { display: none; }
+/* numeral still visible on: odd-indexed section-labels (we'll tag in template) */
+
+/* ─── 09. Page transition · ember flash + lift ─── */
+.page-transition {
+  position: fixed; inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+}
+.page-transition.go {
+  opacity: 1;
+  animation: pageFlash 0.6s cubic-bezier(.22,1,.36,1) forwards;
+  background: linear-gradient(180deg,
+    var(--bg) 0%,
+    var(--bg) 40%,
+    rgba(138, 59, 24, 0.08) 50%,
+    var(--bg) 60%,
+    var(--bg) 100%
+  );
+}
+@keyframes pageFlash {
+  0% { transform: translateY(100%); }
+  72% { transform: translateY(-1%); }
+  76% { transform: translateY(0); }
+  100% { transform: translateY(-100%); }
+}
+/* body lifts slightly when navigating away */
+body.page-leaving { animation: bodyLeave 0.4s cubic-bezier(.22,1,.36,1) forwards; }
+@keyframes bodyLeave {
+  to { transform: translateY(-6px); opacity: 0.65; filter: blur(2px); }
+}
+
+/* ─── 10. Shorter loader · handled in JS but add visual ease ─── */
+.loader { transition: opacity .5s ease, transform .7s cubic-bezier(.22,1,.36,1) !important; }
+
+/* ─── 11. Hide the old tweaks panel (Reading mode replaces it) ─── */
+#tweaks-panel { display: none !important; }
+
+/* ─── 12. Optional: quiet the original cursor lens since aperture replaces it ─── */
+.lens { display: none !important; }
+

@@ -112,17 +112,122 @@
 <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 <script>
 (function(){
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const lenis = new Lenis({ duration: 1.15, easing: t => Math.min(1, 1.001 - Math.pow(2, -10*t)), smoothWheel: true, lerp: 0.1 });
-  function raf(t){ lenis.raf(t); requestAnimationFrame(raf); }
-  requestAnimationFrame(raf);
-  document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click', e=>{
+  const PR = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const TOUCH = matchMedia('(hover: none) and (pointer: coarse)').matches;
+  const root = document.documentElement;
+  const body = document.body;
+
+  // Scaffold overlays
+  ['grain-coarse','raking-light','aperture','page-transition'].forEach(c => {
+    if (!document.querySelector('.' + c)) {
+      const el = document.createElement('div'); el.className = c; el.setAttribute('aria-hidden','true'); body.appendChild(el);
+    }
+  });
+  // Reading mode toggle
+  if (!document.querySelector('.rm-toggle')) {
+    const btn = document.createElement('button');
+    btn.className = 'rm-toggle'; btn.innerHTML = '<span class="dot"></span>Reading mode';
+    btn.setAttribute('aria-pressed','false'); body.appendChild(btn);
+    const saved = localStorage.getItem('rm');
+    if (saved === '1') { root.dataset.rm = 'true'; btn.setAttribute('aria-pressed','true'); }
+    btn.addEventListener('click', () => {
+      const on = root.dataset.rm === 'true';
+      root.dataset.rm = on ? 'false' : 'true';
+      btn.setAttribute('aria-pressed', String(!on));
+      localStorage.setItem('rm', on ? '0' : '1');
+    });
+  }
+
+  // Lenis smooth scroll
+  let lenis = null;
+  if (!PR && typeof Lenis !== 'undefined') {
+    lenis = new Lenis({ duration: 1.4, easing: t => Math.min(1, 1.001 - Math.pow(2, -10*t)), smoothWheel: true, smoothTouch: false, lerp: 0.08 });
+    (function raf(t){ lenis.raf(t); requestAnimationFrame(raf); })(0);
+  }
+
+  // Scroll progress → raking light y
+  function setRake(){
+    const max = body.scrollHeight - window.innerHeight;
+    const p = max > 0 ? window.scrollY / max : 0;
+    root.style.setProperty('--rake-y', (15 + p * 70).toFixed(1));
+  }
+  window.addEventListener('scroll', setRake, { passive: true }); setRake();
+
+  setTimeout(() => { const rl = document.querySelector('.raking-light'); if (rl) rl.classList.add('on'); }, 900);
+
+  // Aperture
+  if (!TOUCH && !PR) {
+    const ap = document.querySelector('.aperture');
+    let x=-500, y=-500, tx=-500, ty=-500, lx=0, ly=0, lt=performance.now(), vel=0;
+    window.addEventListener('pointermove', e => {
+      tx=e.clientX; ty=e.clientY;
+      const now=performance.now(), dt=Math.max(1,now-lt);
+      vel = Math.hypot(e.clientX-lx, e.clientY-ly)/dt;
+      lt=now; lx=e.clientX; ly=e.clientY;
+      ap.classList.add('on');
+    }, {passive:true});
+    window.addEventListener('pointerleave', () => ap.classList.remove('on'));
+    (function tick(){
+      x += (tx-x)*0.18; y += (ty-y)*0.18;
+      ap.style.transform = `translate(${x}px, ${y}px)`;
+      ap.style.setProperty('--ap-size', Math.max(120, Math.min(220, 160 + vel*60)).toFixed(0));
+      vel *= 0.9;
+      requestAnimationFrame(tick);
+    })();
+    const pars = document.querySelectorAll('.chap-body p, .cs-deck');
+    (function proximity(){
+      pars.forEach(p => {
+        const r = p.getBoundingClientRect();
+        const d = Math.hypot(r.left+r.width/2-x, r.top+r.height/2-y);
+        p.classList.toggle('ap-hit', d < 240);
+      });
+      requestAnimationFrame(proximity);
+    })();
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => ap.classList.add('hov'));
+      el.addEventListener('mouseleave', () => ap.classList.remove('hov'));
+    });
+  }
+
+  // Polaroid reveals
+  if (!PR) {
+    const targets = document.querySelectorAll('.cs-hero, .cs-fig');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('polaroid-in','go'); io.unobserve(e.target); } });
+    }, { threshold: 0.18 });
+    targets.forEach(el => { el.classList.add('polaroid-in'); io.observe(el); });
+  }
+
+  // Smooth anchor scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
       const id = a.getAttribute('href').slice(1);
       const el = document.getElementById(id);
-      if(el){ e.preventDefault(); lenis.scrollTo(el, {offset:-20, duration:1.3}); }
+      if (!el) return;
+      e.preventDefault();
+      if (lenis) lenis.scrollTo(el, { offset: -24, duration: 1.5 });
+      else window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 20, behavior: 'smooth' });
     });
   });
+
+  // Page transition on internal links
+  if (!PR) {
+    const overlay = document.querySelector('.page-transition');
+    document.querySelectorAll('a[href]').forEach(a => {
+      const href = a.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:') || a.target === '_blank') return;
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        body.classList.add('page-leaving');
+        if (overlay) overlay.classList.add('go');
+        setTimeout(() => { window.location.href = href; }, 420);
+      });
+    });
+    window.addEventListener('pageshow', () => {
+      body.classList.remove('page-leaving');
+      const ov = document.querySelector('.page-transition'); if (ov) ov.classList.remove('go');
+    });
+  }
 })();
 </script>
 </body>
