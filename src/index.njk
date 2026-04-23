@@ -1,0 +1,495 @@
+---
+layout: false
+permalink: /
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>{{ site.title }}</title>
+<meta name="description" content="{{ site.description }}">
+<meta property="og:title" content="{{ site.title }}">
+<meta property="og:description" content="{{ site.description }}">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="/assets/main.css">
+<script>
+const TWEAKS = {{ home.tweaks | dump | safe }};
+</script>
+
+</head>
+<body>
+
+<div class="progress" aria-hidden="true"></div>
+<div class="grain"></div>
+<div class="lens" id="lens"></div>
+
+<!-- ═════ LOADER ═════ -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="ld-corner tl"><span>PSG</span><span>© 2026</span></div>
+  <div class="ld-corner tr"><span>Dhaka &#9670; 23°45′N</span><span>Est. 2009</span></div>
+  <div class="ld-corner bl"><span>Portfolio</span><span>A fifteen-year practice</span></div>
+  <div class="ld-corner br"><span class="ld-count" id="ldCount">00</span><span>Loading</span></div>
+
+  <div class="ld-stage">
+    <div class="ld-rule" id="ldRuleTop"></div>
+    <div class="ld-line">
+      <span class="ld-word w1">Integration</span>
+      <span class="ld-chev">&rsaquo;</span>
+      <span class="ld-word w2">Summation</span>
+    </div>
+    <div class="ld-sub">Pratik Sengupta &nbsp;·&nbsp; AGM Brand Experience</div>
+    <div class="ld-rule" id="ldRuleBot"></div>
+  </div>
+
+  <div class="ld-bar"><div class="ld-bar-fill" id="ldBar"></div></div>
+</div>
+
+<!-- ═════ NAV ═════ -->
+<nav class="nav" id="nav">
+  <span class="mark">{{ home.nav.mark }}</span>
+  <ul>
+    <li><a href="#selected-work">Work</a></li>
+    <li><a href="#record">Record</a></li>
+    <li><a href="#figures">Figures</a></li>
+    <li><a href="#formation">Formation</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <span class="mono">{{ home.nav.right }}</span>
+</nav>
+
+<!-- ═════ HERO ═════ -->
+<section class="hero">
+  <div class="hero-meta rev in">
+    <span>{{ home.hero.meta_left }}</span>
+    <span>{{ home.hero.meta_right }}</span>
+  </div>
+
+  <div class="hero-portrait" aria-hidden="true"><span class="cap">PSG &#9670; 2026</span></div>
+
+  <div>
+    <h1 class="hero-name rev in">{{ home.hero.name_line_1 }}<br>{{ home.hero.name_line_2 }}</h1>
+
+    <div class="hero-tagline rev in d2">
+      <div class="hero-sub">Fifteen years in branding.<br>Ten in quiet luxury.</div>
+      <div class="hero-pill">
+        AGM Brand Experience
+        <b>InnStar Limited</b>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-ind rev in d3"><span class="tick"></span>Begin</div>
+</section>
+
+<!-- ═════ MANIFESTO ═════ -->
+<section class="manifesto wrap" id="work">
+  <div class="man-grid">
+    <div>
+      <div class="sec-label rev"><span class="num">I</span>Manifesto</div>
+      <h2 class="man-title rev d1">The work begins in the <em>same place</em> every time.</h2>
+      <div class="montage rev d2" id="montage" aria-label="Portrait montage">
+        <div class="stage">
+          <div class="slide s1 on"></div>
+          <div class="slide s2"></div>
+          <div class="slide s3"></div>
+          <div class="flash" id="mFlash"></div>
+        </div>
+        <div class="meta"><span class="idx" id="mIdx">01</span><span>03 frames</span></div>
+        <div class="ticks" id="mTicks"><span class="on"></span><span></span><span></span></div>
+        <span class="cap">Self Portraits &#9670; 2024–26</span>
+      </div>
+    </div>
+    <div class="man-body">
+      <p class="rev d2">In what people feel before they have language for&nbsp;it.</p>
+      <p class="rev d3">A mathematics degree formed the structure. Behavioral science revealed the motive. A decade inside a single luxury house enforced the discipline.</p>
+      <span class="pullquote rev d4">The underlying conviction remains intact.</span>
+      <p class="rev d5">Luxury is not addition. It is the removal of everything that does not&nbsp;belong.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ SIGNATURE BAND ═════ -->
+<section class="signature" aria-label="Signature">
+  <div class="signature-corner">The Signature<b>Soulages</b></div>
+  <div class="signature-inner">
+    <div class="signature-word">Outrenoir.</div>
+    <div class="signature-meta">© psg &#9670; 2026<br>Dhaka, Bangladesh</div>
+  </div>
+</section>
+
+<!-- ═════ VERTICALS ═════ -->
+<section class="verticals" id="ensemble">
+  <div class="wrap">
+    <div class="vert-head">
+      <div>
+        <div class="sec-label rev"><span class="num">II</span>The Ensemble</div>
+        <h2 class="vert-title rev d1">Six concurrent <em>practices</em>, one unified discipline.</h2>
+      </div>
+      <p class="vert-intro rev d2">Six practices. One editorial logic. Each holds its own voice, its own object, its own room.</p>
+    </div>
+
+    <div class="vert-grid">
+      <div class="vert rev d1">
+        <div class="vert-num">01</div>
+        <div class="vert-name">Residential <em>Real Estate</em></div>
+        <div class="vert-desc">High-end residential architecture for UHNWI clientele. LEED Platinum and Gold across three commercial properties.</div>
+        <div class="vert-mark">Bangladesh</div>
+      </div>
+      <div class="vert rev d2">
+        <div class="vert-num">02</div>
+        <div class="vert-name">Boutique <em>Hospitality</em></div>
+        <div class="vert-desc">Serviced apartments and the InnStar Experience Lounge, a dedicated luxury residential experience center directed from brief to opening.</div>
+        <div class="vert-mark">Dhaka</div>
+      </div>
+      <div class="vert rev d3">
+        <div class="vert-num">03</div>
+        <div class="vert-name">Bespoke <em>Furniture</em></div>
+        <div class="vert-desc">A curated European furniture programme positioned for Bangladesh. Price, showroom register, and restraint held as one.</div>
+        <div class="vert-mark">European</div>
+      </div>
+      <div class="vert rev d4">
+        <div class="vert-num">04</div>
+        <div class="vert-name">House <em>Café</em></div>
+        <div class="vert-desc">Identity, interior language, menu architecture, and music curation built as one proposition.</div>
+        <div class="vert-mark">Retail</div>
+      </div>
+      <div class="vert rev d5">
+        <div class="vert-num">05</div>
+        <div class="vert-name">Premium <em>F &amp; B</em></div>
+        <div class="vert-desc">Positioning and narrative for food and beverage lines within the InnStar ensemble.</div>
+        <div class="vert-mark">Lifestyle</div>
+      </div>
+      <div class="vert rev d6">
+        <div class="vert-num">06</div>
+        <div class="vert-name">Electric <em>Vehicle</em></div>
+        <div class="vert-desc">Bangladesh market entry for Jinpeng EV. Bangla wordmark adaptation, launch collateral suite, and original video content.</div>
+        <div class="vert-mark">Jinpeng</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ SELECTED WORK ═════ -->
+<section class="selected-work" id="selected-work">
+  <div class="wrap" style="padding-top:80px; padding-bottom:0;">
+    <div class="sec-label rev"><span class="num">III</span>Selected Work</div>
+    <h2 class="rec-title rev d1" style="margin-bottom:0; padding-bottom:56px;">Case&nbsp;<em>studies</em>.</h2>
+  </div>
+
+  {%- for case in collections.caseStudies -%}
+  <div class="sw-row">
+    <div class="sw-img">
+      {%- if case.data.row_image -%}
+      <img src="{{ case.data.row_image }}" alt="{{ case.data.title }}" style="width:100%;height:100%;object-fit:cover;display:block;">
+      {%- endif -%}
+      <div class="img-caption">{{ case.data.row_image_caption or "Image Forthcoming · June 2026" }}</div>
+    </div>
+    <div class="sw-info">
+      <div class="sw-title">{{ case.data.title }}</div>
+      <div class="sw-frame">{{ case.data.frame }}</div>
+      <p style="font-family:var(--serif);font-style:italic;font-weight:300;font-size:17px;color:var(--ink-3);line-height:1.5;margin-bottom:28px;">{{ case.data.tagline }}</p>
+      <a class="sw-read" href="/case/{{ case.data.slug }}/">Read in full <span class="sw-arrow">&rarr;</span></a>
+    </div>
+  </div>
+{%- endfor -%}
+</section>
+
+<!-- ═════ RECORD ═════ -->
+<section class="record wrap" id="record">
+  <div class="rec-head">
+    <div class="sec-label rev"><span class="num">IV</span>The Record</div>
+    <h2 class="rec-title rev d1">Career in <em>detail</em>.</h2>
+    <p class="rec-kicker rev d2">Four chapters. Seventeen years. One continuous line of thought.</p>
+  </div>
+
+  <div class="chapter rev">
+    <div class="ch-year">2016<span class="to">Present · 10 yrs</span></div>
+    <div class="ch-role">
+      <h3>AGM Brand Experience</h3>
+      <div class="ch-org">InnStar Limited · Dhaka</div>
+      <p class="ch-ctx">A six-brand luxury house under unified creative discipline. Real estate, hospitality, furniture, café, F&amp;B, and EV. Full strategic and creative oversight.</p>
+    </div>
+    <div class="ch-proofs">
+      <div class="pf">Brand identity systems for <em>six practices</em>, each with distinct positioning and voice.</div>
+      <div class="pf">Directed <em>LEED Platinum and Gold</em> certification across three commercial properties, delivering 23% energy efficiency gains.</div>
+      <div class="pf">Supervised signage and wayfinding systems for <em>19 residential and commercial projects</em>, from concept to fabrication.</div>
+      <div class="pf">Directed integrated Meta campaigns with <em>Telenor Group and ADA</em>, delivering 3.92M impressions and 432K unique reach across HNI segments.</div>
+      <div class="pf">Most recent: brand lead on the Bangladesh launch of <em>Jinpeng EV</em>, 2025.</div>
+    </div>
+  </div>
+
+  <div class="chapter rev">
+    <div class="ch-year">2013<span class="to">2015 · 2 yrs</span></div>
+    <div class="ch-role">
+      <h3>Brand Manager</h3>
+      <div class="ch-org">Interspeed Marketing Solutions · Dhaka</div>
+      <p class="ch-ctx">A full-service marketing agency operating across financial services, telecommunications, and FMCG sectors.</p>
+    </div>
+    <div class="ch-proofs">
+      <div class="pf">Developed and launched <em>OK</em>, ONE Bank's mobile financial services brand: identity, positioning, and market entry strategy.</div>
+      <div class="pf">Contributed to <em>OK</em>'s acquisition of <em>2.5 million MFS users</em> within 24 months across POSM and rural activation.</div>
+      <div class="pf">Built real-time point-of-sales intelligence systems for <em>Grameenphone</em> and <em>Robi</em>.</div>
+    </div>
+  </div>
+
+  <div class="chapter rev">
+    <div class="ch-year">2009<span class="to">2013 · 4 yrs</span></div>
+    <div class="ch-role">
+      <h3>Country Representative</h3>
+      <div class="ch-org">Grace Tours APS · Copenhagen–Dhaka</div>
+      <p class="ch-ctx">A Royal Danish Embassy-supported sustainable tourism initiative linking Scandinavia and South Asia.</p>
+    </div>
+    <div class="ch-proofs">
+      <div class="pf">Established the country's first structured <em>sustainable tourism network</em>, aligning operators, guides and cultural stakeholders under a unified international platform.</div>
+      <div class="pf">Directed <em>From Bangladesh with Love</em>, an eight-part travel documentary series distributed globally.</div>
+      <div class="pf">Managed program operations, partnerships and reporting across a multi-year international development initiative.</div>
+    </div>
+  </div>
+
+  <div class="chapter rev">
+    <div class="ch-year">2008<span class="to">2009 · 1 yr</span></div>
+    <div class="ch-role">
+      <h3>Program Officer</h3>
+      <div class="ch-org">Associates for Development Services · Dhaka</div>
+      <p class="ch-ctx">Quantitative research and field operations on an IFC / World Bank Group baseline study: agricultural, public health and development finance sectors.</p>
+    </div>
+    <div class="ch-proofs">
+      <div class="pf">Designed and executed structured baseline surveys across agricultural producer networks.</div>
+      <div class="pf">Supervised field teams across three divisions; cleaned, coded and reported quantitative data to IFC specifications.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ FIGURES ═════ -->
+<section class="metrics" id="figures">
+  <div class="wrap">
+    <div class="sec-label rev"><span class="num">V</span>Key Figures</div>
+    <h2 class="met-head rev d1">Numbers as they <em>are</em>. Neither dressed up nor down.</h2>
+
+    <div class="met-grid">
+      <div class="met rev d1">
+        <div class="met-num">19</div>
+        <div class="met-desc">Signage Projects</div>
+        <div class="met-ctx">Signage and wayfinding, residential and commercial · InnStar · 2016–Present</div>
+      </div>
+      <div class="met rev d2">
+        <div class="met-num"><span class="tilde">~</span>61<span class="unit">%</span></div>
+        <div class="met-desc">Engagement lift</div>
+        <div class="met-ctx">Meta campaigns with Telenor Group · InnStar · 2022–24</div>
+      </div>
+      <div class="met rev d3">
+        <div class="met-num"><span class="tilde">~</span>23<span class="unit">%</span></div>
+        <div class="met-desc">Energy efficiency gain</div>
+        <div class="met-ctx">Three LEED-certified commercial properties · InnStar · 2019–24</div>
+      </div>
+      <div class="met rev d4">
+        <div class="met-num">0.9<span class="unit">M&thinsp;$</span></div>
+        <div class="met-desc">Annual brand investment</div>
+        <div class="met-ctx">Across the six-brand luxury ensemble · InnStar · 2016–Present</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ DISCIPLINES TICKER ═════ -->
+<section class="disc">
+  <div class="disc-track" id="ticker">
+    <span>Brand Strategy &amp; Architecture</span>
+    <span>Bespoke Environments</span>
+    <span>Behavioral Science</span>
+    <span>Sustainability &amp; ESG</span>
+    <!-- duplicate for seamless loop -->
+    <span>Brand Strategy &amp; Architecture</span>
+    <span>Bespoke Environments</span>
+    <span>Behavioral Science</span>
+    <span>Sustainability &amp; ESG</span>
+  </div>
+</section>
+
+<!-- ═════ RECOGNITION ═════ -->
+<section class="recog wrap">
+  <div class="recog-grid">
+    <div class="recog-card rev">
+      <span class="corner"></span><span class="corner br"></span>
+      <div class="recog-eyebrow">◆ Award · Singapore · 2024</div>
+      <h3 class="recog-title">Real Estate <em>Asia</em> Awards.</h3>
+      <p class="recog-note">Luxury Real Estate, Bangladesh. The principal pan-Asian award for real estate excellence.</p>
+    </div>
+    <div>
+      <div class="sec-label rev"><span class="num">VI</span>Recognition</div>
+      <div class="recog-meta rev d1">
+        <div><b>Singapore</b>Host city</div>
+        <div><b>2024</b>Conferred</div>
+        <div><b>Luxury</b>Category</div>
+        <div><b>Pan-Asian</b>Jurisdiction</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ SIGNATURE BAND II (Outrenoir) ═════ -->
+<section class="signature-2" aria-label="Outrenoir">
+  <div class="sig-left">
+    <div class="sig-word">Outrenoir.</div>
+    <div class="sig-date">After Soulages &middot; 1979</div>
+  </div>
+  <div class="sig-right">
+    <div class="sig-buddha" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- ═════ FORMATION ═════ -->
+<section class="form" id="formation">
+  <div class="wrap">
+    <div class="sec-label rev"><span class="num">VII</span>Formation</div>
+    <h2 class="form-head rev d1">Structure, motive, <em>discipline</em>.</h2>
+
+    <div class="form-grid">
+      <div class="form-col rev d2">
+        <h4>Education</h4>
+        <div class="form-item"><div class="form-d">MSc Population Sciences<em>University of Dhaka</em></div><div class="form-y">2010</div></div>
+        <div class="form-item"><div class="form-d">BSc Mathematics<em>Shahjalal University of Science &amp; Technology</em></div><div class="form-y">2005</div></div>
+        <h4 style="margin-top:48px;">Membership</h4>
+        <div class="form-item"><div class="form-d">Chartered Institute of Marketing<em>United Kingdom</em></div><div class="form-y">Member</div></div>
+        <h4 style="margin-top:48px;">Languages</h4>
+        <div class="form-item"><div class="form-d">Bangla<em>Native</em></div><div class="form-y"></div></div>
+        <div class="form-item"><div class="form-d">English<em>Fluent</em></div><div class="form-y"></div></div>
+      </div>
+
+      <div class="form-col rev d3">
+        <h4>Formation</h4>
+        <div class="form-item"><div class="form-d">Inside LVMH Certificate<em>LVMH Learning</em></div><div class="form-y">2018–25</div></div>
+        <div class="form-item"><div class="form-d">Behavioral Economics &amp; Consumer Psychology<em>Mindworx Academy</em></div><div class="form-y"></div></div>
+        <div class="form-item"><div class="form-d">Behavioral Science for Brands<em>Cannes Lions School</em></div><div class="form-y"></div></div>
+        <div class="form-item"><div class="form-d">Behavioral Insights for Public Policy<em>Dept. of PM &amp; Cabinet, Australia</em></div><div class="form-y"></div></div>
+        <div class="form-item"><div class="form-d">Enterprise Design Thinking<em>IBM</em></div><div class="form-y">Practitioner</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ PERSONAL PRACTICE ═════ -->
+<section class="practice wrap">
+  <div class="sec-label rev"><span class="num">VIII</span>Personal Practice</div>
+  <h2 class="rec-title rev d1" style="margin-bottom:64px;">Work beyond <em>the ledger</em>.</h2>
+
+  <div class="pr-grid">
+    <div class="pr-card rev d1">
+      <div class="pr-year">2007</div>
+      <div class="pr-type">&#9670; Film</div>
+      <div class="pr-name">The Dark Pit</div>
+      <div class="pr-desc">An independent Bengali film. Written, directed, performed. 2007.</div>
+      <div class="pr-role">Writer · Director · Actor</div>
+    </div>
+
+    <div class="pr-card rev d2">
+      <div class="pr-year">2015</div>
+      <div class="pr-type">&#9670; Music</div>
+      <div class="pr-name" style="font-size:20px; line-height:1.2;">This Beautiful Journey Will Only Continue</div>
+      <div class="pr-desc">A brand anthem written and directed for the InnStar creative practice. Song as a continuation of the editorial voice.</div>
+      <div class="pr-role">Lyrics · Direction</div>
+    </div>
+
+    <div class="pr-card rev d3">
+      <div class="pr-year">2025</div>
+      <div class="pr-type">&#9670; Curriculum</div>
+      <div class="pr-name">Elements of Luxury</div>
+      <div class="pr-desc">A curriculum designed and facilitated for the InnStar Facilities Management team. The vocabulary of luxury made practical.</div>
+      <div class="pr-role">Design · Facilitation</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ CONTACT ═════ -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="sec-label rev"><span class="num">IX</span>To Correspond</div>
+    <h1 class="ct-title rev d1">Say <em>less.</em><br>Mean <em>more.</em></h1>
+
+    <div class="ct-grid">
+      <div class="ct-block rev d1">
+        <div class="lbl">Email</div>
+        <a class="val" href="mailto:{{ home.contact.email }}">{{ home.contact.email | replace("@", "<br>@") | safe }}</a>
+      </div>
+      <div class="ct-block rev d2">
+        <div class="lbl">Phone</div>
+        <a class="val" href="tel:{{ home.contact.phone_href }}">{{ home.contact.phone_display }}</a>
+      </div>
+      <div class="ct-block rev d3">
+        <div class="lbl">Studio</div>
+        <div class="val">Dhaka,<br>Bangladesh</div>
+      </div>
+    </div>
+
+    <div class="colophon">
+      <span>&#169;PRATIKSENGUPTA · 2026</span>
+      <span class="sig">Integration &rsaquo; Summation</span>
+      <span>Concept &amp; Design: Bison Monk</span>
+      <span>Set in Cormorant Garamond, Inter, and JetBrains Mono</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ TWEAKS PANEL ═════ -->
+<div id="tweaks-panel" role="dialog" aria-label="Tweaks">
+  <h5>Tweaks</h5>
+  <div class="sub">Editorial adjustments</div>
+
+  <div class="grp">
+    <div class="grp-lbl">Palette</div>
+    <div class="opts" data-key="palette">
+      <button data-v="ink">Ink</button>
+      <button data-v="bone">Bone</button>
+      <button data-v="paper">Paper</button>
+    </div>
+  </div>
+
+  <div class="grp">
+    <div class="grp-lbl">Accent</div>
+    <div class="opts" data-key="accent">
+      <button data-v="ember">Ember</button>
+      <button data-v="oxblood">Oxblood</button>
+      <button data-v="verdigris">Verdigris</button>
+      <button data-v="ink">Monochrome</button>
+    </div>
+  </div>
+
+  <div class="grp">
+    <div class="grp-lbl">Display Face</div>
+    <div class="opts" data-key="display">
+      <button data-v="cormorant">Cormorant</button>
+      <button data-v="playfair">Playfair</button>
+    </div>
+  </div>
+
+  <div class="grp">
+    <div class="grp-lbl">Texture</div>
+    <div class="opts row-toggle" data-key="grain" data-bool="1">
+      <button data-v="true">Grain on</button>
+      <button data-v="false">Grain off</button>
+    </div>
+  </div>
+
+  <div class="grp" style="margin-bottom:0;">
+    <div class="grp-lbl">Cursor Lens</div>
+    <div class="opts row-toggle" data-key="cursor" data-bool="1">
+      <button data-v="true">On</button>
+      <button data-v="false">Off</button>
+    </div>
+  </div>
+</div>
+
+
+
+<script src="/assets/main.js"></script>
+</body>
+</html>

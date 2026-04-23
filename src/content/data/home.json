@@ -1,0 +1,60 @@
+{
+  "tweaks": {
+    "palette": "ink",
+    "accent": "ember",
+    "display": "cormorant",
+    "grain": true,
+    "cursor": false
+  },
+  "nav": {
+    "mark": "psg",
+    "links": [
+      { "label": "Work", "href": "#selected-work" },
+      { "label": "Record", "href": "#record" },
+      { "label": "Figures", "href": "#figures" },
+      { "label": "Formation", "href": "#formation" },
+      { "label": "Contact", "href": "#contact" }
+    ],
+    "right": "© 2026 ◆ Dhaka"
+  },
+  "hero": {
+    "name_line_1": "Pratik",
+    "name_line_2": "Sengupta",
+    "sub": "Fifteen years in branding.<br>Ten in quiet luxury.",
+    "pill": "AGM Brand Experience",
+    "meta_left": "Dhaka · 23°45′N 90°23′E",
+    "meta_right": "Est. 2009"
+  },
+  "loader": {
+    "word_1": "Integration",
+    "word_2": "Summation",
+    "sub": "Pratik Sengupta  ·  AGM Brand Experience"
+  },
+  "manifesto": {
+    "title": "The work begins in the <em>same place</em> every time.",
+    "body": [
+      "In what people feel before they have language for it.",
+      "A mathematics degree formed the structure. Behavioral science revealed the motive. A decade inside a single luxury house enforced the discipline."
+    ],
+    "pullquote": "The underlying conviction remains intact.",
+    "body_after": [
+      "Luxury is not addition. It is the removal of everything that does not belong."
+    ]
+  },
+  "signature_band_1": {
+    "corner_kicker": "The Signature",
+    "corner_name": "Soulages",
+    "word": "Outrenoir.",
+    "meta": "© psg ◆ 2026<br>Dhaka, Bangladesh"
+  },
+  "contact": {
+    "headline": "Let's talk.",
+    "email": "pratik.sengupta@outlook.com",
+    "phone_display": "+88 01777 755 055",
+    "phone_href": "+8801777755055"
+  },
+  "colophon": {
+    "left": "Pratik Sengupta · Dhaka · MMXXVI",
+    "right": "Built with care · Bison Monk"
+  }
+}

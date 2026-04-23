@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>{{ title }} · Case Study · Pratik Sengupta</title>
+<meta name="description" content="{{ tagline }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/case-study.css">
+</head>
+<body>
+
+<a class="return" href="/">&larr; Return to portfolio</a>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="cs-mast wrap">
+  <div class="cs-meta">
+    <div class="sec-label"><span class="num">{{ case_num }}</span>Selected Work</div>
+    <div class="cs-frame">{{ frame }}</div>
+  </div>
+  <h1 class="cs-title">{{ title | safe }}.</h1>
+  <p class="cs-deck">{{ deck | safe }}</p>
+</header>
+
+<figure class="cs-hero">
+  {% if hero_image %}
+    <img src="{{ hero_image }}" alt="{{ hero_caption }}" style="width:100%;display:block;">
+  {% else %}
+    <div class="ph ph-16x9">
+      <div class="ph-caption">Hero image forthcoming &middot; June 2026</div>
+    </div>
+  {% endif %}
+  <figcaption class="cs-cap">{{ hero_caption }}</figcaption>
+</figure>
+
+{% if facts and facts.length %}
+<section class="cs-facts wrap">
+  {% for f in facts %}
+  <div class="fact">
+    <div class="fact-k">{{ f.key }}</div>
+    <div class="fact-v">{{ f.value | safe }}</div>
+  </div>
+  {% endfor %}
+</section>
+{% endif %}
+
+{% for ch in chapters %}
+<section class="cs-chap wrap">
+  <div class="chap-num">{{ ch.num }}</div>
+  <div class="chap-grid">
+    <div class="chap-lead">{{ ch.lead | safe }}</div>
+    <div class="chap-body">
+      {{ ch.body | md | safe }}
+      {% if ch.pullquote %}
+      <blockquote class="cs-pull">
+        <span class="pq-mark">&ldquo;</span>{{ ch.pullquote | safe }}<span class="pq-mark">&rdquo;</span>
+      </blockquote>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endfor %}
+
+{% if credits and credits.length %}
+<section class="cs-credits wrap">
+  <div class="cr-grid">
+    {% for c in credits %}
+    <div class="cr-col">
+      <div class="cr-k">{{ c.key }}</div>
+      <div class="cr-v">{{ c.value | safe }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<nav class="cs-next wrap">
+  {% set nextCase = null %}
+  {% for c in collections.caseStudies %}
+    {% if c.data.order == (order + 1) %}
+      {% set nextCase = c %}
+    {% endif %}
+  {% endfor %}
+  {% if not nextCase %}
+    {% set nextCase = collections.caseStudies[0] %}
+  {% endif %}
+  {% if nextCase.data.slug != slug %}
+  <a class="next-link" href="/case/{{ nextCase.data.slug }}/">
+    <div class="next-k">Next case study</div>
+    <div class="next-v">{{ nextCase.data.title }} <span class="next-arrow">&rarr;</span></div>
+  </a>
+  {% else %}
+  <a class="next-link" href="/#selected-work">
+    <div class="next-k">Back to</div>
+    <div class="next-v">Selected Work <span class="next-arrow">&rarr;</span></div>
+  </a>
+  {% endif %}
+  <a class="next-link alt" href="/#selected-work">
+    <div class="next-k">Or</div>
+    <div class="next-v">All selected work <span class="next-arrow">&rarr;</span></div>
+  </a>
+</nav>
+
+<footer class="cs-foot wrap">
+  <div class="colo">
+    {{ site.author }} &middot; {{ site.location }} &middot; MMXXVI<br>
+  </div>
+</footer>
+
+</body>
+</html>
