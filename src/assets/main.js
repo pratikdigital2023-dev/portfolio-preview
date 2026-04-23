@@ -21,6 +21,29 @@
   requestAnimationFrame(frame);
 })();
 
+/* ═════ LENIS SMOOTH SCROLL (industry-standard momentum) ═════ */
+const PREFERS_REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const IS_TOUCH = matchMedia('(hover: none) and (pointer: coarse)').matches;
+let lenis = null;
+(function(){
+  if (PREFERS_REDUCED) return;
+  // Skip Lenis if library failed to load (offline/CDN issue)
+  if (typeof Lenis === 'undefined') return;
+  lenis = new Lenis({
+    duration: 1.15,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+    // on touch devices, native momentum scroll is already good — disable Lenis to avoid double-interp
+    smoothTouch: false,
+    touchMultiplier: 1.2,
+    lerp: 0.1,
+    infinite: false,
+  });
+  function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+  window.__lenis = lenis;
+})();
+
 /* ═════ SCROLL + POINTER VARS ═════ */
 (function(){
   const html = document.documentElement;
@@ -33,19 +56,22 @@
   window.addEventListener('scroll', setScr, {passive:true});
   setScr();
 
-  window.addEventListener('pointermove', e=>{
-    tx = (e.clientX / window.innerWidth) - .5;
-    ty = (e.clientY / window.innerHeight) - .5;
-  }, {passive:true});
-  (function pTick(){
-    sx += (tx - sx) * .08;
-    sy += (ty - sy) * .08;
-    html.style.setProperty('--mx', sx.toFixed(4));
-    html.style.setProperty('--my', sy.toFixed(4));
-    requestAnimationFrame(pTick);
-  })();
+  // pointer vars only on hover-capable devices
+  if (!IS_TOUCH) {
+    window.addEventListener('pointermove', e=>{
+      tx = (e.clientX / window.innerWidth) - .5;
+      ty = (e.clientY / window.innerHeight) - .5;
+    }, {passive:true});
+    (function pTick(){
+      sx += (tx - sx) * .08;
+      sy += (ty - sy) * .08;
+      html.style.setProperty('--mx', sx.toFixed(4));
+      html.style.setProperty('--my', sy.toFixed(4));
+      requestAnimationFrame(pTick);
+    })();
+  }
 
-  // nav show/hide on scroll direction
+  // nav show/hide on scroll direction (unchanged)
   const nv = document.getElementById('nav');
   let lastY = 0;
   window.addEventListener('scroll', ()=>{
@@ -207,6 +233,41 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click', (e)=>{
     const id = a.getAttribute('href').slice(1);
     const el = document.getElementById(id);
-    if(el){ e.preventDefault(); window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - 20, behavior:'smooth'}); }
+    if(!el) return;
+    e.preventDefault();
+    if (lenis) {
+      lenis.scrollTo(el, { offset: -24, duration: 1.4 });
+    } else {
+      window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 20, behavior: 'smooth' });
+    }
   });
 });
+
+/* ═════ CURSOR LENS: hide on touch devices ═════ */
+if (IS_TOUCH) {
+  const lensEl = document.getElementById('lens');
+  if (lensEl) lensEl.style.display = 'none';
+}
+
+/* ═════ IMAGE REVEAL on load (subtle clip-path sweep) ═════ */
+(function(){
+  if (PREFERS_REDUCED) return;
+  const imgs = document.querySelectorAll('.sw-img img, .cs-hero img, .fact-v img, figure img');
+  if (!imgs.length) return;
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if (e.isIntersecting) {
+        e.target.style.clipPath = 'inset(0 0 0 0)';
+        e.target.style.transform = 'scale(1)';
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:.18});
+  imgs.forEach(img=>{
+    img.style.clipPath = 'inset(0 0 100% 0)';
+    img.style.transform = 'scale(1.04)';
+    img.style.transition = 'clip-path 1.1s cubic-bezier(.22,1,.36,1), transform 1.4s cubic-bezier(.22,1,.36,1)';
+    img.style.willChange = 'clip-path, transform';
+    io.observe(img);
+  });
+})();

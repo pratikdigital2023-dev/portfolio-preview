@@ -24,24 +24,48 @@
 
 *{ box-sizing:border-box; margin:0; padding:0; }
 
+html{ scroll-behavior:auto; }
 html,body{
   background:var(--bg); color:var(--ink);
   font-family:var(--sans); font-weight:300;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   text-rendering:optimizeLegibility;
-  hanging-punctuation:first last;
-  scroll-behavior:smooth;
+  font-feature-settings:"kern","liga","calt";
+  font-variant-ligatures:common-ligatures contextual;
+  hanging-punctuation:first allow-end last;
+  max-width:100vw; overflow-x:clip;
+}
+.cs-title, .chap-lead, .cs-deck, .next-v{
+  font-feature-settings:"kern","liga","dlig","ss01","onum";
+  font-variant-ligatures:common-ligatures discretionary-ligatures contextual;
+  text-rendering:geometricPrecision;
 }
 
 ::selection{ background: var(--accent); color: var(--ink); }
 
-/* ─── Grain ─── */
+/* ─── Grain · fine, deep, subtle ─── */
 .grain{
-  position:fixed; inset:0;
+  position:fixed; inset:-50%;
   pointer-events:none; z-index:1;
-  mix-blend-mode:overlay; opacity:.22;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .9 0'/></filter><rect width='220' height='220' filter='url(%23n)' opacity='.5'/></svg>");
+  mix-blend-mode:soft-light; opacity:.14;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.65' numOctaves='3' stitchTiles='stitch' seed='3'/><feColorMatrix values='0 0 0 0 0.92  0 0 0 0 0.88  0 0 0 0 0.80  0 0 0 .9 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+  background-size: 160px 160px;
+  animation: grainShift 7.2s steps(7) infinite;
+  will-change: transform;
+}
+@keyframes grainShift{
+  0%   { transform: translate(0, 0); }
+  14%  { transform: translate(-2%, 3%); }
+  28%  { transform: translate(3%, -1%); }
+  42%  { transform: translate(-1%, -3%); }
+  57%  { transform: translate(2%, 2%); }
+  71%  { transform: translate(-3%, 1%); }
+  85%  { transform: translate(1%, -2%); }
+  100% { transform: translate(0, 0); }
+}
+@media (prefers-reduced-motion: reduce){
+  .grain{ animation:none; }
 }
 
 /* ─── Return link ─── */
@@ -399,3 +423,18 @@ html,body{
     scroll-behavior: auto !important;
   }
 }
+
+/* ═════ FINAL QA POLISH ═════ */
+img, video, svg { max-width: 100%; height: auto; }
+@media (hover: none){
+  .next-link:hover{ transform: none !important; border-top-color: var(--rule) !important; }
+  .next-link:hover .next-arrow{ transform: none !important; }
+}
+@media (max-width: 414px){
+  .wrap, .wrap-wide, .cs-hero{ padding-left: 18px; padding-right: 18px; }
+  .cs-mast{ padding-top: 96px; }
+  .cs-title{ font-size: clamp(44px, 12vw, 80px); }
+  .chap-lead{ font-size: 20px; }
+  .cs-pull{ font-size: 22px; padding-left: 18px; }
+}
+a, button { -webkit-tap-highlight-color: transparent; }
