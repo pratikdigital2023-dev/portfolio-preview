@@ -37,8 +37,11 @@ const root = document.documentElement;
   if (!document.querySelector('.rm-toggle')) {
     const btn = document.createElement('button');
     btn.className = 'rm-toggle';
-    btn.innerHTML = '<span class="dot"></span>Reading mode';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Toggle reading mode');
     btn.setAttribute('aria-pressed', 'false');
+    btn.setAttribute('data-label', 'Reading mode');
+    btn.innerHTML = '<span class="rm-ico" aria-hidden="true"><i></i><i></i><i></i></span>';
     body.appendChild(btn);
   }
 })();
@@ -323,12 +326,16 @@ document.querySelectorAll('.rev').forEach(el => io.observe(el));
 (function(){
   const btn = document.querySelector('.rm-toggle');
   if (!btn) return;
+  function sync(on){
+    btn.setAttribute('aria-pressed', String(on));
+    btn.setAttribute('data-label', on ? 'Exit reading' : 'Reading mode');
+  }
   const saved = localStorage.getItem('rm');
-  if (saved === '1') { root.dataset.rm = 'true'; btn.setAttribute('aria-pressed', 'true'); }
+  if (saved === '1') { root.dataset.rm = 'true'; sync(true); } else { sync(false); }
   btn.addEventListener('click', () => {
     const on = root.dataset.rm === 'true';
     root.dataset.rm = on ? 'false' : 'true';
-    btn.setAttribute('aria-pressed', String(!on));
+    sync(!on);
     localStorage.setItem('rm', on ? '0' : '1');
   });
 })();
