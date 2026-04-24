@@ -261,11 +261,7 @@ strong{font-weight:500;}
   color:#ebe4d6;
   transform: translate3d(0,0,0);
 }
-.signature-2 .sig-date{
-  font-family:var(--mono); font-size:10.5px; letter-spacing:.28em; text-transform:uppercase;
-  color:rgba(235,228,214,.45);
-  padding-left:2px;
-}
+.signature-2 .sig-date{ font-family:var(--serif); font-style:italic; font-weight:300; font-size:clamp(22px, 2.6vw, 34px); letter-spacing:-.005em; color:var(--accent); padding-left:2px; margin-top:4px; }
 .signature-2 .sig-right{
   position:relative; z-index:2;
   display:flex; align-items:center; justify-content:center;
@@ -373,13 +369,7 @@ html.loading, html.loading body{ overflow:hidden; height:100%; }
 }
 .ld-word.w1{ animation-delay:.15s; }
 .ld-word.w2{ animation-delay:.32s; font-style:normal; color:#131211; }
-.ld-chev{
-  color:var(--accent);
-  font-style:normal; font-family:var(--serif); font-weight:300;
-  font-size:.8em;
-  transform:translateY(20px); opacity:0;
-  animation: ldChev .9s .28s cubic-bezier(.2,.75,.2,1) forwards;
-}
+.ld-chev{ color:#b4542d; font-style:normal; font-family:var(--serif); font-weight:400; font-size:.95em; transform:translateY(20px); opacity:0; animation: ldChev .9s .28s cubic-bezier(.2,.75,.2,1) forwards; }
 @keyframes ldRise{ to{ transform:translateY(0); } }
 @keyframes ldChev{ to{ transform:translateY(0); opacity:1; } }
 
@@ -1632,7 +1622,7 @@ body.page-leaving { animation: bodyLeave 0.4s cubic-bezier(.22,1,.36,1) forwards
     <div class="vert-grid">
       <div class="vert rev d1">
         <div class="vert-num">01</div>
-        <div class="vert-name">Residential <em>Real Estate</em></div>
+        <div class="vert-name">Luxury <em>Real Estate</em></div>
         <div class="vert-desc">High-end residential architecture for UHNWI clientele. LEED Platinum and Gold across three commercial properties.</div>
         <div class="vert-mark">Bangladesh</div>
       </div>
@@ -1656,7 +1646,7 @@ body.page-leaving { animation: bodyLeave 0.4s cubic-bezier(.22,1,.36,1) forwards
       </div>
       <div class="vert rev d5">
         <div class="vert-num">05</div>
-        <div class="vert-name">Premium <em>F &amp; B</em></div>
+        <div class="vert-name">Premium <em style="white-space:nowrap">F&nbsp;&amp;&nbsp;B</em></div>
         <div class="vert-desc">Positioning and narrative for food and beverage lines within the InnStar ensemble.</div>
         <div class="vert-mark">Lifestyle</div>
       </div>
@@ -1850,7 +1840,16 @@ body.page-leaving { animation: bodyLeave 0.4s cubic-bezier(.22,1,.36,1) forwards
   </div>
 </section>
 
-<!-- Signature Band II removed -->
+<!-- ═════ SIGNATURE BAND II · Say less. Mean More. ═════ -->
+<section class="signature-2" id="say-less" aria-label="Say less. Mean more.">
+  <div class="sig-left">
+    <div class="sig-word">Say less.<br>Mean more.</div>
+    <div class="sig-date">Transcendent&hellip;</div>
+  </div>
+  <div class="sig-right">
+    <div class="sig-buddha" aria-hidden="true"></div>
+  </div>
+</section>
 
 <!-- ═════ FORMATION ═════ -->
 <section class="form" id="formation">
@@ -1939,7 +1938,6 @@ body.page-leaving { animation: bodyLeave 0.4s cubic-bezier(.22,1,.36,1) forwards
       <span>&#169;PRATIKSENGUPTA · 2026</span>
       <span class="sig">Integration &rsaquo; Summation</span>
       <span>Concept &amp; Design: Bison Monk</span>
-      <span>Set in Cormorant Garamond, Inter, and JetBrains Mono</span>
     </div>
   </div>
 </section>
