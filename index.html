@@ -347,82 +347,41 @@ strong{font-weight:500;}
   display:block; margin-top:4px;
 }
 
-/* ═════ LOADER ═════ */
+/* ═════ LOADER · minimal · warm-white page, single line ═════ */
 .loader{
   position:fixed; inset:0; z-index:200;
-  background:var(--bg);
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  background:#f5f1e8;
+  display:flex; align-items:center; justify-content:center;
   padding:32px 44px;
-  color:var(--ink);
+  color:#131211;
   transition: opacity .9s cubic-bezier(.6,0,.2,1), transform 1.1s cubic-bezier(.6,0,.2,1), visibility 0s linear 1.1s;
 }
 .loader.done{ opacity:0; transform:translateY(-24px); visibility:hidden; pointer-events:none; }
 html.loading, html.loading body{ overflow:hidden; height:100%; }
-.ld-corner{
-  position:absolute;
-  font-family:var(--mono); font-size:10.5px; letter-spacing:.22em; text-transform:uppercase;
-  color:var(--ink-3);
-  display:flex; flex-direction:column; gap:4px;
-  opacity:0; animation:ldFadeCorner .9s .1s cubic-bezier(.2,.7,.2,1) forwards;
-}
-.ld-corner.tl{top:26px; left:44px;}
-.ld-corner.tr{top:26px; right:44px; text-align:right; align-items:flex-end;}
-.ld-corner.bl{bottom:58px; left:44px;}
-.ld-corner.br{bottom:58px; right:44px; text-align:right; align-items:flex-end;}
-.ld-corner .ld-count{font-family:var(--serif); font-style:italic; font-weight:300; font-size:20px; color:var(--ink); letter-spacing:0; text-transform:none; line-height:1;}
-@keyframes ldFadeCorner{to{opacity:1;}}
-
-.ld-stage{
-  display:flex; flex-direction:column; align-items:center; gap:28px;
-  width:min(1100px, 86vw);
-}
-.ld-rule{
-  height:1px; background:var(--rule); width:100%;
-  transform:scaleX(0); transform-origin:left;
-  animation: ldRule 1.1s .1s cubic-bezier(.7,0,.2,1) forwards;
-}
-#ldRuleBot{ transform-origin:right; animation-delay:.25s; }
-@keyframes ldRule{to{transform:scaleX(1);}}
-
 .ld-line{
   font-family:var(--serif); font-weight:300;
-  font-size:clamp(34px, 7.2vw, 116px);
-  line-height:1; letter-spacing:-.02em;
-  display:flex; align-items:center; gap:.28em;
-  white-space:nowrap;
-  overflow:hidden;
-  max-width:100%;
+  font-size:clamp(32px, 6.6vw, 96px);
+  line-height:1; letter-spacing:-.015em;
+  display:flex; align-items:center; gap:.32em;
+  white-space:nowrap; overflow:hidden; max-width:100%;
+  color:#131211;
 }
 .ld-word{
-  display:inline-block;
+  display:inline-block; color:#131211;
   transform:translateY(110%);
   animation: ldRise 1.1s cubic-bezier(.2,.75,.2,1) forwards;
 }
-.ld-word.w1{animation-delay:.35s;}
-.ld-word.w2{font-style:italic; color:var(--accent); animation-delay:.62s;}
+.ld-word.w1{ animation-delay:.15s; }
+.ld-word.w2{ animation-delay:.32s; font-style:normal; color:#131211; }
 .ld-chev{
-  color:var(--ink-4); font-style:normal; font-family:var(--mono); font-size:.38em;
+  color:var(--accent);
+  font-style:normal; font-family:var(--serif); font-weight:300;
+  font-size:.8em;
   transform:translateY(20px); opacity:0;
-  animation: ldChev 1s .5s cubic-bezier(.2,.75,.2,1) forwards;
+  animation: ldChev .9s .28s cubic-bezier(.2,.75,.2,1) forwards;
 }
-@keyframes ldRise{to{transform:translateY(0);}}
-@keyframes ldChev{to{transform:translateY(0); opacity:1;}}
-
-.ld-sub{
-  font-family:var(--mono); font-size:10.5px; letter-spacing:.28em; text-transform:uppercase;
-  color:var(--ink-3);
-  opacity:0; animation: ldFadeCorner .9s .9s cubic-bezier(.2,.7,.2,1) forwards;
-}
-
-.ld-bar{
-  position:absolute; left:44px; right:44px; bottom:36px;
-  height:1px; background:var(--rule);
-  overflow:hidden;
-}
-.ld-bar-fill{
-  height:100%; width:0%; background:var(--accent);
-  transition: width .08s linear;
-}
+@keyframes ldRise{ to{ transform:translateY(0); } }
+@keyframes ldChev{ to{ transform:translateY(0); opacity:1; } }
 
 @media(max-width:700px){
   .ld-corner.tl, .ld-corner.tr{top:18px;}
@@ -1031,7 +990,7 @@ section{position:relative;}
   font-size:clamp(36px, 5vw, 72px);
   color:var(--ink);
   white-space:nowrap;
-  animation:ticker 55s linear infinite;
+  animation:ticker 20s linear infinite;
   line-height:1.1;
 }
 .disc-track span{flex:none;}
@@ -1577,25 +1536,13 @@ body.page-leaving { animation: bodyLeave 0.4s cubic-bezier(.22,1,.36,1) forwards
 <div class="grain"></div>
 <div class="lens" id="lens"></div>
 
-<!-- ═════ LOADER ═════ -->
+<!-- ═════ LOADER · minimal white page ═════ -->
 <div class="loader" id="loader" aria-hidden="true">
-  <div class="ld-corner tl"><span>PSG</span><span>© 2026</span></div>
-  <div class="ld-corner tr"><span>Dhaka &#9670; 23°45′N</span><span>Est. 2009</span></div>
-  <div class="ld-corner bl"><span>Portfolio</span><span>A fifteen-year practice</span></div>
-  <div class="ld-corner br"><span class="ld-count" id="ldCount">00</span><span>Loading</span></div>
-
-  <div class="ld-stage">
-    <div class="ld-rule" id="ldRuleTop"></div>
-    <div class="ld-line">
-      <span class="ld-word w1">Integration</span>
-      <span class="ld-chev">&rsaquo;</span>
-      <span class="ld-word w2">Summation</span>
-    </div>
-    <div class="ld-sub">Pratik Sengupta &nbsp;·&nbsp; AGM Brand Experience</div>
-    <div class="ld-rule" id="ldRuleBot"></div>
+  <div class="ld-line">
+    <span class="ld-word w1">Integration</span>
+    <span class="ld-chev">&rsaquo;</span>
+    <span class="ld-word w2">Summation</span>
   </div>
-
-  <div class="ld-bar"><div class="ld-bar-fill" id="ldBar"></div></div>
 </div>
 
 <!-- ═════ NAV ═════ -->
