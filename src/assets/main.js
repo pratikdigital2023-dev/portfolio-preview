@@ -51,7 +51,7 @@ const root = document.documentElement;
   root.classList.add('loading');
   const loader = document.getElementById('loader');
   if (!loader) { root.classList.remove('loading'); return; }
-  const DURATION = 1200;
+  const DURATION = 2200;
   setTimeout(() => {
     loader.classList.add('done');
     root.classList.remove('loading');
