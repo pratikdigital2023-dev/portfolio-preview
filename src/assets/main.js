@@ -46,26 +46,16 @@ const root = document.documentElement;
   }
 })();
 
-/* ═════ LOADER · 1.2s, not 2.6s ═════ */
+/* ═════ LOADER · minimal · single line, fades out ═════ */
 (function(){
   root.classList.add('loading');
   const loader = document.getElementById('loader');
-  const bar = document.getElementById('ldBar');
-  const count = document.getElementById('ldCount');
   if (!loader) { root.classList.remove('loading'); return; }
   const DURATION = 1200;
-  const start = performance.now();
-  function frame(t){
-    const p = Math.min(1, (t - start) / DURATION);
-    if (bar) bar.style.width = (p * 100).toFixed(1) + '%';
-    if (count) count.textContent = String(Math.floor(p * 100)).padStart(2, '0');
-    if (p < 1) requestAnimationFrame(frame);
-    else setTimeout(() => {
-      loader.classList.add('done');
-      root.classList.remove('loading');
-    }, 140);
-  }
-  requestAnimationFrame(frame);
+  setTimeout(() => {
+    loader.classList.add('done');
+    root.classList.remove('loading');
+  }, DURATION);
 })();
 
 /* ═════ LENIS SMOOTH SCROLL ═════ */
