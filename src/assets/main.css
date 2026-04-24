@@ -1085,6 +1085,7 @@ section{position:relative;}
   color:var(--ink-3);
 }
 .colophon .sig{font-family:var(--serif); font-style:italic; text-transform:none; letter-spacing:0; font-size:14px; color:var(--bg-3);}
+.colophon .sig .sig-chev{ color:var(--accent); font-style:normal; font-weight:400; padding:0 .12em; }
 
 /* ═════ TWEAKS PANEL ═════ */
 #tweaks-panel{
