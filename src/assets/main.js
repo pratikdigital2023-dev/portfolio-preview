@@ -16,12 +16,6 @@ const root = document.documentElement;
     g.setAttribute('aria-hidden', 'true');
     body.appendChild(g);
   }
-  if (!document.querySelector('.raking-light')) {
-    const r = document.createElement('div');
-    r.className = 'raking-light';
-    r.setAttribute('aria-hidden', 'true');
-    body.appendChild(r);
-  }
   if (!document.querySelector('.aperture')) {
     const a = document.createElement('div');
     a.className = 'aperture';
@@ -71,9 +65,6 @@ let lenis = null;
     const max = document.body.scrollHeight - window.innerHeight;
     const p = max > 0 ? window.scrollY / max : 0;
     root.style.setProperty('--scr', p.toFixed(4));
-    // raking light y position: sweeps from top to bottom over the scroll
-    const rakeY = 15 + p * 70;
-    root.style.setProperty('--rake-y', rakeY.toFixed(1));
   }
   window.addEventListener('scroll', setScr, { passive: true });
   setScr();
@@ -104,12 +95,6 @@ let lenis = null;
     lastY = y;
   }, { passive: true });
 })();
-
-/* ═════ RAKING LIGHT · enable after load ═════ */
-setTimeout(() => {
-  const rl = document.querySelector('.raking-light');
-  if (rl) rl.classList.add('on');
-}, 1800);
 
 /* ═════ CURSOR APERTURE · follows pointer, scales with velocity ═════ */
 (function(){

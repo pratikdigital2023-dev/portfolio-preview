@@ -118,7 +118,7 @@
   const body = document.body;
 
   // Scaffold overlays
-  ['grain-coarse','raking-light','aperture','page-transition'].forEach(c => {
+  ['grain-coarse','aperture','page-transition'].forEach(c => {
     if (!document.querySelector('.' + c)) {
       const el = document.createElement('div'); el.className = c; el.setAttribute('aria-hidden','true'); body.appendChild(el);
     }
@@ -130,16 +130,6 @@
     lenis = new Lenis({ duration: 1.4, easing: t => Math.min(1, 1.001 - Math.pow(2, -10*t)), smoothWheel: true, smoothTouch: false, lerp: 0.08 });
     (function raf(t){ lenis.raf(t); requestAnimationFrame(raf); })(0);
   }
-
-  // Scroll progress → raking light y
-  function setRake(){
-    const max = body.scrollHeight - window.innerHeight;
-    const p = max > 0 ? window.scrollY / max : 0;
-    root.style.setProperty('--rake-y', (15 + p * 70).toFixed(1));
-  }
-  window.addEventListener('scroll', setRake, { passive: true }); setRake();
-
-  setTimeout(() => { const rl = document.querySelector('.raking-light'); if (rl) rl.classList.add('on'); }, 900);
 
   // Aperture
   if (!TOUCH && !PR) {

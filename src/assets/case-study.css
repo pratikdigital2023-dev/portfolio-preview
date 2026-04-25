@@ -444,22 +444,6 @@ a, button { -webkit-tap-highlight-color: transparent; }
    ═════════════════════════════════════════════════════════════ */
 
 /* Raking Light */
-.raking-light {
-  position: fixed; inset: 0;
-  pointer-events: none; z-index: 2;
-  mix-blend-mode: soft-light;
-  opacity: 0;
-  background: radial-gradient(
-    ellipse 88% 22% at 50% calc(var(--rake-y, 50) * 1%),
-    rgba(255, 228, 188, 0.35) 0%,
-    rgba(255, 212, 158, 0.14) 30%,
-    transparent 60%
-  );
-  transition: opacity 1.2s ease;
-}
-.raking-light.on { opacity: 1; }
-@media (prefers-reduced-motion: reduce) { .raking-light { display: none; } }
-
 /* Coarse second grain layer */
 .grain-coarse {
   position: fixed; inset: -30%;
@@ -555,6 +539,4 @@ body.page-leaving { animation: bodyLeave 0.4s cubic-bezier(.22,1,.36,1) forwards
 @keyframes bodyLeave {
   to { transform: translateY(-6px); opacity: 0.65; filter: blur(2px); }
 }
-
-@media (max-width: 520px) { }
 
