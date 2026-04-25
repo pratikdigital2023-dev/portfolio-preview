@@ -1232,25 +1232,6 @@ section{position:relative;}
    ═════════════════════════════════════════════════════════════ */
 
 /* ─── 01. Raking Light · scroll-linked warm sweep across the page ─── */
-.raking-light {
-  position: fixed; inset: 0;
-  pointer-events: none;
-  z-index: 2;
-  mix-blend-mode: soft-light;
-  opacity: 0;
-  background:
-    radial-gradient(
-      ellipse 88% 22% at 50% calc(var(--rake-y, 50) * 1%),
-      rgba(255, 228, 188, 0.35) 0%,
-      rgba(255, 212, 158, 0.14) 30%,
-      transparent 60%
-    );
-  transition: opacity 1.2s ease;
-  will-change: opacity;
-}
-.raking-light.on { opacity: 1; }
-@media (prefers-reduced-motion: reduce) { .raking-light { display: none; } }
-
 /* ─── 02. Two-layer grain · adds depth. First layer is the existing fine grain ─── */
 .grain-coarse {
   position: fixed; inset: -30%;
@@ -1387,12 +1368,6 @@ p.ap-hit, .chap-body p.ap-hit, .man-body p.ap-hit {
   .polaroid-in::after { display: none; }
   .polaroid-in > img, .polaroid-in .ph { filter: none; transform: none; }
 }
-
-/* The icon: three thin reading-lines inside a circle — visually "text column" */
-/* Hide the old text/dot fallbacks if present */
-/* Active state (reading mode on) · solid ink fill */
-@media (max-width: 520px) {
-  }
 
 /* ─── 08. Alternating numerals · drop every other section's numeral ─── */
 .sec-label .num.hide-num { display: none; }
