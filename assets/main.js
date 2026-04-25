@@ -34,16 +34,6 @@ const root = document.documentElement;
     p.setAttribute('aria-hidden', 'true');
     body.appendChild(p);
   }
-  if (!document.querySelector('.rm-toggle')) {
-    const btn = document.createElement('button');
-    btn.className = 'rm-toggle';
-    btn.type = 'button';
-    btn.setAttribute('aria-label', 'Toggle reading mode');
-    btn.setAttribute('aria-pressed', 'false');
-    btn.setAttribute('data-label', 'Reading mode');
-    btn.innerHTML = '<span class="rm-ico" aria-hidden="true"><i></i><i></i><i></i></span>';
-    body.appendChild(btn);
-  }
 })();
 
 /* ═════ LOADER · minimal · single line, fades out ═════ */
@@ -312,23 +302,6 @@ document.querySelectorAll('.rev').forEach(el => io.observe(el));
   }, { passive: true });
 })();
 
-/* ═════ READING MODE TOGGLE ═════ */
-(function(){
-  const btn = document.querySelector('.rm-toggle');
-  if (!btn) return;
-  function sync(on){
-    btn.setAttribute('aria-pressed', String(on));
-    btn.setAttribute('data-label', on ? 'Exit reading' : 'Reading mode');
-  }
-  const saved = localStorage.getItem('rm');
-  if (saved === '1') { root.dataset.rm = 'true'; sync(true); } else { sync(false); }
-  btn.addEventListener('click', () => {
-    const on = root.dataset.rm === 'true';
-    root.dataset.rm = on ? 'false' : 'true';
-    sync(!on);
-    localStorage.setItem('rm', on ? '0' : '1');
-  });
-})();
 
 /* ═════ SMOOTH ANCHOR SCROLL ═════ */
 document.querySelectorAll('a[href^="#"]').forEach(a => {

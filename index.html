@@ -1388,92 +1388,11 @@ p.ap-hit, .chap-body p.ap-hit, .man-body p.ap-hit {
   .polaroid-in > img, .polaroid-in .ph { filter: none; transform: none; }
 }
 
-/* ─── 07. Reading mode · small editorial icon, bottom-right ─── */
-.rm-toggle {
-  position: fixed; bottom: 22px; right: 22px; z-index: 180;
-  width: 38px; height: 38px;
-  display: inline-flex; align-items: center; justify-content: center;
-  background: rgba(19, 18, 17, 0.55);
-  border: 1px solid var(--rule);
-  border-radius: 50%;
-  cursor: pointer;
-  color: var(--ink-3);
-  transition: color .45s ease, border-color .45s ease, background .45s ease, transform .45s var(--ease-settle);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-.rm-toggle:hover { color: var(--ink); border-color: var(--ink-3); transform: translateY(-1px); }
-.rm-toggle:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
 /* The icon: three thin reading-lines inside a circle — visually "text column" */
-.rm-toggle .rm-ico {
-  display: flex; flex-direction: column; gap: 3px;
-  width: 14px;
-}
-.rm-toggle .rm-ico i {
-  display: block; height: 1px; background: currentColor;
-  transition: width .45s var(--ease-settle), background .45s ease;
-}
-.rm-toggle .rm-ico i:nth-child(1) { width: 100%; }
-.rm-toggle .rm-ico i:nth-child(2) { width: 75%; }
-.rm-toggle .rm-ico i:nth-child(3) { width: 55%; }
-.rm-toggle:hover .rm-ico i:nth-child(2) { width: 100%; }
-.rm-toggle:hover .rm-ico i:nth-child(3) { width: 85%; }
 /* Hide the old text/dot fallbacks if present */
-.rm-toggle > .dot, .rm-toggle > span:not(.rm-ico) { display: none; }
 /* Active state (reading mode on) · solid ink fill */
-html[data-rm="true"] .rm-toggle { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-html[data-rm="true"] .rm-toggle .rm-ico i:nth-child(1),
-html[data-rm="true"] .rm-toggle .rm-ico i:nth-child(2),
-html[data-rm="true"] .rm-toggle .rm-ico i:nth-child(3) { width: 100%; }
-/* Tooltip label only visible on hover (desktop) · aria-label handles screen readers */
-.rm-toggle::after {
-  content: attr(data-label);
-  position: absolute; right: calc(100% + 10px); top: 50%;
-  transform: translateY(-50%);
-  font-family: var(--mono); font-size: 9px; letter-spacing: .24em;
-  text-transform: uppercase; color: var(--ink-3);
-  white-space: nowrap; pointer-events: none;
-  opacity: 0; transition: opacity .35s ease;
-}
-@media (hover: hover) {
-  .rm-toggle:hover::after { opacity: 1; }
-}
 @media (max-width: 520px) {
-  .rm-toggle { width: 34px; height: 34px; bottom: 18px; right: 18px; }
-  .rm-toggle .rm-ico { width: 12px; }
-}
-
-/* Reading mode: simplify aggressively */
-html[data-rm="true"] .grain,
-html[data-rm="true"] .grain-coarse,
-html[data-rm="true"] .raking-light,
-html[data-rm="true"] .lens,
-html[data-rm="true"] .aperture,
-html[data-rm="true"] .hero-portrait,
-html[data-rm="true"] .montage,
-html[data-rm="true"] .signature,
-html[data-rm="true"] .signature-2,
-html[data-rm="true"] .disc,
-html[data-rm="true"] .sw-img,
-html[data-rm="true"] .scroll-ind,
-html[data-rm="true"] #tweaks-panel { display: none !important; }
-html[data-rm="true"] .hero { min-height: auto; padding: 140px 20px 80px; }
-html[data-rm="true"] body {
-  max-width: 680px;
-  margin: 0 auto;
-  background: #0e0d0b;
-}
-html[data-rm="true"] .man-grid,
-html[data-rm="true"] .rec-head,
-html[data-rm="true"] .chapter,
-html[data-rm="true"] .met-grid,
-html[data-rm="true"] .form-grid,
-html[data-rm="true"] .pr-grid,
-html[data-rm="true"] .recog-grid,
-html[data-rm="true"] .ct-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
-html[data-rm="true"] .sw-row { grid-template-columns: 1fr; min-height: auto; }
-html[data-rm="true"] .sw-info { border-left: none; padding: 24px 0; }
-html[data-rm="true"] h2, html[data-rm="true"] h3 { letter-spacing: -.012em; }
+  }
 
 /* ─── 08. Alternating numerals · drop every other section's numeral ─── */
 .sec-label .num.hide-num { display: none; }
@@ -1512,7 +1431,6 @@ body.page-leaving { animation: bodyLeave 0.4s cubic-bezier(.22,1,.36,1) forwards
 /* ─── 10. Shorter loader · handled in JS but add visual ease ─── */
 .loader { transition: opacity .5s ease, transform .7s cubic-bezier(.22,1,.36,1) !important; }
 
-/* ─── 11. Hide the old tweaks panel (Reading mode replaces it) ─── */
 #tweaks-panel { display: none !important; }
 
 /* ─── 12. Optional: quiet the original cursor lens since aperture replaces it ─── */
