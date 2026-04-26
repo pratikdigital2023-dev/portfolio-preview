@@ -1,0 +1,418 @@
+/* ════════════════════════════════════════════════════════════════
+   THEME & DESIGN 2 — Integration › Summation
+   Awwwards register · Aesop / The Row quietness
+   Bone & ink + terracotta accent
+   ════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Two colors and an accent. That is all. */
+  --bone:      #f4efe5;
+  --bone-2:    #ece5d6;
+  --ink:       #0e0d0c;
+  --ink-2:     #1a1814;
+  --ink-3:     #6b6555;
+  --ink-4:     #a39c8a;
+  --rule:      #d5cfbf;
+  --terracotta:#9a4a2a;
+  --terracotta-soft: #c46a44;
+
+  /* Type */
+  --serif: "Cormorant Garamond", "Didot", "Playfair Display", Georgia, serif;
+  --mono:  "JetBrains Mono", ui-monospace, Menlo, monospace;
+
+  /* Easings — only one. Restraint. */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Generous spacing scale */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 32px;
+  --space-4: 64px;
+  --space-5: 128px;
+  --space-6: 200px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bone);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+  font-feature-settings: "kern", "liga", "dlig", "calt", "ss01", "onum";
+  font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+  hanging-punctuation: first allow-end last;
+  scroll-behavior: auto; /* Lenis controls smooth */
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--terracotta); color: var(--bone); }
+
+a { color: inherit; text-decoration: none; }
+em { font-style: italic; color: var(--ink-2); }
+strong { font-weight: 400; }
+
+/* ─── Subtle paper-tooth grain ─── */
+.grain-2 {
+  position: fixed; inset: -30%;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.10;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.45' numOctaves='3' stitchTiles='stitch' seed='5'/><feColorMatrix values='0 0 0 0 0.18  0 0 0 0 0.16  0 0 0 0 0.12  0 0 0 .85 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+  background-size: 200px 200px;
+  animation: grainShift2 8s steps(8) infinite;
+}
+@keyframes grainShift2 {
+  0%, 100% { transform: translate(0, 0); }
+  12% { transform: translate(-1.5%, 2%); }
+  25% { transform: translate(2%, -1%); }
+  37% { transform: translate(-1%, -2%); }
+  50% { transform: translate(1.5%, 1.5%); }
+  62% { transform: translate(-2%, 1%); }
+  75% { transform: translate(1%, -1.5%); }
+  87% { transform: translate(-0.5%, 0.5%); }
+}
+@media (prefers-reduced-motion: reduce) { .grain-2 { animation: none; opacity: 0.06; } }
+
+/* ─── The chevron · the living motif ─── */
+.chev {
+  display: inline-block;
+  color: var(--terracotta);
+  font-style: normal;
+  font-weight: 400;
+  padding: 0 0.18em;
+  transition: transform 0.7s var(--ease), color 0.7s var(--ease);
+  will-change: transform;
+}
+/* "Breathing" pulse triggered when ANY chevron is hovered (set via JS on body) */
+body.chev-pulse .chev {
+  animation: chevPulse 1.4s var(--ease);
+}
+@keyframes chevPulse {
+  0%, 100% { transform: translateY(0); color: var(--terracotta); }
+  40% { transform: translateY(-0.06em); color: var(--terracotta-soft); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.chev-pulse .chev { animation: none; }
+}
+
+/* ─── Loader · the equation appears ─── */
+.v2-loader {
+  position: fixed; inset: 0; z-index: 500;
+  background: var(--bone);
+  display: flex; align-items: center; justify-content: center;
+  padding: 32px;
+  transition: opacity 0.6s var(--ease);
+}
+.v2-loader.gone { opacity: 0; pointer-events: none; }
+.v2-loader-line {
+  font-family: var(--serif); font-style: italic; font-weight: 300;
+  font-size: clamp(40px, 7vw, 96px);
+  line-height: 1; letter-spacing: -0.018em;
+  color: var(--ink);
+  opacity: 0;
+  animation: loaderFade 0.9s 0.05s var(--ease) forwards;
+}
+@keyframes loaderFade { to { opacity: 1; } }
+
+/* ─── Marginalia · the table-of-contents ─── */
+.toc {
+  position: fixed; right: 28px; top: 50%; transform: translateY(-50%);
+  z-index: 80;
+  display: flex; flex-direction: column; gap: 22px;
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  opacity: 0; transition: opacity 0.6s var(--ease);
+  pointer-events: none;
+}
+.toc.on { opacity: 1; pointer-events: auto; }
+.toc a {
+  display: flex; align-items: center; gap: 14px;
+  position: relative;
+  transition: color 0.4s var(--ease);
+}
+.toc a::before {
+  content: ""; display: block;
+  width: 18px; height: 1px;
+  background: var(--ink-4);
+  transition: width 0.5s var(--ease), background 0.5s var(--ease);
+}
+.toc a:hover, .toc a.is-here {
+  color: var(--ink);
+}
+.toc a:hover::before, .toc a.is-here::before {
+  width: 36px; background: var(--terracotta);
+}
+@media (max-width: 760px) { .toc { display: none; } }
+
+/* ─── Sound toggle (placeholder, optional) ─── */
+.snd-toggle {
+  position: fixed; bottom: 22px; right: 22px; z-index: 80;
+  width: 30px; height: 30px;
+  border: 1px solid var(--rule); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-style: italic; font-size: 14px;
+  color: var(--ink-3);
+  background: rgba(244,239,229,0.7); backdrop-filter: blur(4px);
+  cursor: pointer;
+  transition: color 0.4s var(--ease), border-color 0.4s var(--ease), opacity 0.6s var(--ease);
+  opacity: 0;
+}
+.snd-toggle.on-screen { opacity: 1; }
+.snd-toggle:hover { color: var(--ink); border-color: var(--ink-3); }
+
+/* ─── Cursor compass (desktop) ─── */
+.compass {
+  position: fixed; bottom: 22px; left: 22px; z-index: 80;
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.32em;
+  text-transform: uppercase; color: var(--ink-3);
+  opacity: 0; transition: opacity 0.6s var(--ease);
+  pointer-events: none;
+}
+.compass.on { opacity: 1; }
+.compass .roman { color: var(--terracotta); padding-right: 2px; }
+@media (hover: none) { .compass { display: none; } }
+
+/* ═════════════════════════════════════════════════════════════
+   ROOMS — full-viewport snap sections
+   ═════════════════════════════════════════════════════════════ */
+
+.scroll-host {
+  scroll-snap-type: y mandatory;
+  height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.scroll-host::-webkit-scrollbar { display: none; }
+
+.room {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+  position: relative;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: clamp(80px, 10vh, 140px) clamp(28px, 6vw, 96px);
+}
+
+.room-num {
+  position: absolute; top: clamp(40px, 6vh, 80px); left: clamp(28px, 6vw, 96px);
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.32em;
+  text-transform: uppercase; color: var(--ink-3);
+}
+.room-num .terra { color: var(--terracotta); padding-right: 8px; }
+
+/* The horizontal hairline that draws across when a room enters */
+.room::before {
+  content: "";
+  position: absolute; top: clamp(40px, 6vh, 80px); left: clamp(28px, 6vw, 96px); right: clamp(28px, 6vw, 96px);
+  height: 1px; background: var(--rule);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 1.4s var(--ease) 0.2s;
+}
+.room.in-view::before { transform: scaleX(1); }
+
+/* ─── Room 01 · Theorem ─── */
+.r-theorem {
+  align-items: center; text-align: center;
+  padding-top: clamp(120px, 18vh, 220px);
+  padding-bottom: clamp(120px, 18vh, 220px);
+}
+.theorem-line {
+  font-family: var(--serif); font-style: italic; font-weight: 300;
+  font-size: clamp(56px, 12vw, 196px);
+  line-height: 0.92; letter-spacing: -0.025em;
+  color: var(--ink);
+  margin-bottom: clamp(40px, 6vw, 72px);
+}
+.theorem-cap {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.34em;
+  text-transform: uppercase; color: var(--ink-3);
+  max-width: 460px;
+  line-height: 1.8;
+}
+
+/* ─── Room 02 · Annotation ─── */
+.r-annotation {
+  align-items: flex-start;
+}
+.annot-eq {
+  font-family: var(--serif); font-style: italic; font-weight: 300;
+  font-size: clamp(40px, 6vw, 88px);
+  line-height: 1; letter-spacing: -0.018em;
+  color: var(--ink);
+  margin-bottom: clamp(48px, 8vh, 120px);
+  align-self: center;
+}
+.annot-grid {
+  display: grid; grid-template-columns: 1fr; gap: clamp(32px, 4vh, 56px);
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+@media (min-width: 900px) {
+  .annot-grid { grid-template-columns: 1fr 1.4fr; gap: clamp(56px, 8vw, 120px); }
+}
+.annot-side {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--ink-3);
+  line-height: 2;
+}
+.annot-side .num { color: var(--terracotta); padding-right: 12px; }
+.annot-body {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(20px, 1.8vw, 26px);
+  line-height: 1.55;
+  color: var(--ink);
+  max-width: 640px;
+}
+.annot-body p { margin-bottom: 1.2em; }
+.annot-body p:last-child { margin-bottom: 0; }
+.annot-body em { font-style: italic; color: var(--ink-2); }
+
+/* ─── Rooms 03, 04, 05 · The three operations ─── */
+.r-op {
+  display: grid; align-items: center;
+  grid-template-columns: 1fr;
+  gap: clamp(40px, 6vh, 72px);
+  max-width: 1400px; margin: 0 auto;
+  width: 100%;
+}
+@media (min-width: 900px) {
+  .r-op { grid-template-columns: 1fr 1fr; gap: clamp(60px, 8vw, 140px); }
+}
+
+.op-text { display: flex; flex-direction: column; gap: clamp(16px, 2vh, 28px); }
+.op-roman {
+  font-family: var(--serif); font-style: italic; font-weight: 300;
+  font-size: clamp(72px, 8vw, 132px);
+  line-height: 0.9; letter-spacing: -0.02em;
+  color: var(--terracotta);
+}
+.op-kicker {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.32em;
+  text-transform: uppercase; color: var(--ink-3);
+}
+.op-name {
+  font-family: var(--serif); font-style: italic; font-weight: 300;
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 1; letter-spacing: -0.018em;
+  color: var(--ink);
+}
+.op-tagline {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(18px, 1.5vw, 22px);
+  line-height: 1.45;
+  color: var(--ink-2);
+  max-width: 380px;
+}
+.op-meta {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--ink-4);
+}
+.op-link {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--serif); font-style: italic; font-weight: 300;
+  font-size: 18px; color: var(--ink);
+  border-bottom: 1px solid var(--ink-3);
+  padding-bottom: 4px;
+  margin-top: 16px;
+  align-self: flex-start;
+  transition: color 0.5s var(--ease), border-color 0.5s var(--ease), gap 0.5s var(--ease);
+}
+.op-link:hover { color: var(--terracotta); border-color: var(--terracotta); gap: 18px; }
+.op-link .arrow { color: var(--terracotta); transition: transform 0.5s var(--ease); }
+.op-link:hover .arrow { transform: translateX(6px); }
+
+/* Image plate · placeholder treatment */
+.op-plate {
+  position: relative;
+  aspect-ratio: 4/5;
+  background: var(--bone-2);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+  display: flex; align-items: flex-end; justify-content: flex-start;
+}
+.op-plate::before {
+  content: "";
+  position: absolute; inset: 24px;
+  border: 1px dashed rgba(14,13,12,0.06);
+  pointer-events: none;
+}
+.op-plate::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(135deg,
+    transparent 0 24px,
+    rgba(14,13,12,0.014) 24px 25px
+  );
+}
+.op-plate-cap {
+  position: relative; z-index: 1;
+  padding: 18px 22px;
+  font-family: var(--mono); font-size: 9.5px;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+/* ─── Room 06 · Q.E.D. ─── */
+.r-qed {
+  align-items: center; text-align: center;
+  gap: clamp(40px, 6vh, 80px);
+}
+.qed-mark {
+  font-family: var(--serif); font-style: italic; font-weight: 300;
+  font-size: clamp(72px, 14vw, 220px);
+  line-height: 0.9; letter-spacing: -0.024em;
+  color: var(--ink);
+}
+.qed-mark .terra { color: var(--terracotta); }
+.qed-line {
+  font-family: var(--serif); font-style: italic; font-weight: 300;
+  font-size: clamp(20px, 1.8vw, 26px);
+  line-height: 1.6;
+  color: var(--ink-2);
+  max-width: 720px;
+}
+.qed-line a {
+  border-bottom: 1px solid var(--rule);
+  transition: color 0.5s var(--ease), border-color 0.5s var(--ease);
+}
+.qed-line a:hover { color: var(--terracotta); border-color: var(--terracotta); }
+.qed-cap {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.32em;
+  text-transform: uppercase; color: var(--ink-4);
+  margin-top: 16px;
+}
+
+/* ─── Reveal-on-enter ─── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1.1s var(--ease), transform 1.3s var(--ease);
+  will-change: opacity, transform;
+}
+.fade-up.in { opacity: 1; transform: none; }
+.fade-up.d1 { transition-delay: 0.1s; }
+.fade-up.d2 { transition-delay: 0.22s; }
+.fade-up.d3 { transition-delay: 0.34s; }
+.fade-up.d4 { transition-delay: 0.46s; }
+.fade-up.d5 { transition-delay: 0.58s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .room::before { transform: scaleX(1) !important; transition: none !important; }
+  .scroll-host { scroll-snap-type: none; }
+}
+
+/* ─── iOS tap polish ─── */
+a, button { -webkit-tap-highlight-color: transparent; }
+img, video { max-width: 100%; height: auto; display: block; }
