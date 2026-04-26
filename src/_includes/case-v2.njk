@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>{{ title }} · {{ kicker }} · Pratik Sengupta</title>
+<meta name="description" content="{{ tagline }}">
+<meta name="theme-color" content="#f4efe5">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/v2/assets/v2.css">
+<link rel="stylesheet" href="/v2/assets/case-v2.css">
+</head>
+<body class="case-v2">
+
+<div class="grain-2" aria-hidden="true"></div>
+
+<header class="case-mast">
+  <a class="case-back" href="/v2/">
+    <span class="chev">&lsaquo;</span> Return to the equation
+  </a>
+  <div class="case-eyebrow">
+    <span class="terra">{{ roman }}</span> Operation {{ kicker_short }} &middot; the {{ kicker_lower }}
+  </div>
+</header>
+
+<article class="case-body">
+
+  <section class="case-title-block">
+    <h1 class="case-title">{{ title | safe }}.</h1>
+    <p class="case-deck">{{ deck | safe }}</p>
+    <div class="case-frame">{{ frame }}</div>
+  </section>
+
+  <figure class="case-hero">
+    <div class="case-plate">
+      <div class="case-plate-cap">Hero plate &middot; image forthcoming</div>
+    </div>
+    <figcaption>{{ hero_caption }}</figcaption>
+  </figure>
+
+  <section class="case-facts">
+    {% for f in facts %}
+    <div class="fact-row">
+      <div class="fact-k">{{ f.key }}</div>
+      <div class="fact-v">{{ f.value | safe }}</div>
+    </div>
+    {% endfor %}
+  </section>
+
+  {% for ch in chapters %}
+  <section class="case-chap">
+    <div class="chap-mark">{{ ch.num }}</div>
+    <h2 class="chap-lead">{{ ch.lead | safe }}</h2>
+    <div class="chap-body">
+      {{ ch.body | md | safe }}
+      {% if ch.pullquote %}
+      <blockquote class="chap-pull">
+        <span class="chap-pull-mark">&ldquo;</span>{{ ch.pullquote | safe }}<span class="chap-pull-mark">&rdquo;</span>
+      </blockquote>
+      {% endif %}
+    </div>
+  </section>
+  {% endfor %}
+
+  <section class="case-credits">
+    {% for c in credits %}
+    <div class="cred-row">
+      <div class="cred-k">{{ c.key }}</div>
+      <div class="cred-v">{{ c.value | safe }}</div>
+    </div>
+    {% endfor %}
+  </section>
+
+  <nav class="case-next">
+    {% if next_slug %}
+    <a class="case-next-link" href="/v2/case/{{ next_slug }}/">
+      <div class="case-next-k">Next operation</div>
+      <div class="case-next-v">{{ next_title }} <span class="chev">&rsaquo;</span></div>
+    </a>
+    {% endif %}
+    <a class="case-next-link case-next-alt" href="/v2/#r6">
+      <div class="case-next-k">Or</div>
+      <div class="case-next-v">Q.E.D. <span class="chev">&rsaquo;</span></div>
+    </a>
+  </nav>
+
+  <footer class="case-foot">
+    Pratik Sengupta &nbsp;·&nbsp; Dhaka &nbsp;·&nbsp; MMXXVI
+  </footer>
+
+</article>
+
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<script>
+(function(){
+  const PR = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const body = document.body;
+
+  // Lenis smooth scroll
+  if (!PR && typeof Lenis !== 'undefined') {
+    const lenis = new Lenis({ duration: 1.4, easing: t => Math.min(1, 1.001 - Math.pow(2, -10*t)), smoothWheel: true, smoothTouch: false, lerp: 0.08 });
+    function raf(t){ lenis.raf(t); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+  }
+
+  // Living chevron
+  if (!PR) {
+    document.querySelectorAll('.chev').forEach(ch => {
+      ch.addEventListener('mouseenter', () => {
+        body.classList.remove('chev-pulse');
+        void body.offsetWidth;
+        body.classList.add('chev-pulse');
+      });
+    });
+  }
+
+  // Page transition
+  if (!PR) {
+    document.querySelectorAll('a[href]').forEach(a => {
+      const href = a.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:') || a.target === '_blank') return;
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        body.style.transition = 'opacity 0.4s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1)';
+        body.style.opacity = '0';
+        body.style.transform = 'translateY(-6px)';
+        setTimeout(() => { window.location.href = href; }, 360);
+      });
+    });
+    window.addEventListener('pageshow', () => {
+      body.style.opacity = '';
+      body.style.transform = '';
+    });
+  }
+})();
+</script>
+</body>
+</html>

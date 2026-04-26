@@ -1,6 +1,7 @@
 module.exports = function(eleventyConfig) {
   // Pass through static assets unchanged
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
+  eleventyConfig.addPassthroughCopy({ "src/v2/assets": "v2/assets" });
   eleventyConfig.addPassthroughCopy({ "public": "/" });
 
   // Collections: case studies (ordered by order field)
