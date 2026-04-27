@@ -3,27 +3,20 @@ title: Trigon 7 at Dewans
 slug: trigon-7
 roman: I
 kicker: Operation One
-kicker_short: One
 kicker_lower: integer
 frame: Residential · Architecture · Gulshan, Dhaka · 2023–Present
 tagline: A thirty-storey diagrid tower. Gulshan Avenue. Paris register.
 deck: A thirty-storey diagrid tower on Gulshan Avenue. Paris register, Dhaka address. Positioning, naming logic, and the narrative architecture for one of the city's most visible luxury residential projects.
-hero_caption: Façade study · Trigon 7 diagrid, view from Gulshan Avenue
+hero_caption: Façade study · Trigon 7 diagrid, Gulshan Avenue
 next_slug: house-cafe
 next_title: House Café
 facts:
-  - key: Client
-    value: Dewan Group · Real Estate Division
-  - key: Role
-    value: Brand Experience Director · AGM, InnStar
-  - key: Scope
-    value: Naming, positioning, editorial voice, launch collateral, sales gallery direction
-  - key: Typology
-    value: Thirty storeys · Diagrid expression · Luxury residential
-  - key: Duration
-    value: 2023 → Present
-  - key: Address
-    value: Gulshan Avenue, Dhaka
+  - { key: Client, value: "Dewan Group · Real Estate Division" }
+  - { key: Role, value: "Brand Experience Director · AGM, InnStar" }
+  - { key: Scope, value: "Naming, positioning, editorial voice, launch collateral, sales gallery direction" }
+  - { key: Typology, value: "Thirty storeys · Diagrid expression · Luxury residential" }
+  - { key: Duration, value: "2023 → Present" }
+  - { key: Address, value: "Gulshan Avenue, Dhaka" }
 chapters:
   - num: "I — The brief"
     lead: A position, not a logo.
@@ -49,14 +42,10 @@ chapters:
     body: |
       Trigon 7 at Dewans has not yet topped out. The launch campaign is scheduled for the spring following structural completion.
 
-      The underlying conviction remains intact. Quiet is a position. Restraint is a strategy. A building tells you what it is before the brochure does, and the brochure's only job is not to contradict it.
+      The underlying conviction remains intact. Quiet is a position. Restraint is a strategy.
 credits:
-  - key: Brand Experience Direction
-    value: Pratik Sengupta, AGM · InnStar Limited
-  - key: Client
-    value: Dewan Group
-  - key: Architecture
-    value: Withheld pending publication
-  - key: Status
-    value: Live engagement · 2023→
+  - { key: "Brand Experience Direction", value: "Pratik Sengupta, AGM · InnStar Limited" }
+  - { key: "Client", value: "Dewan Group" }
+  - { key: "Architecture", value: "Withheld pending publication" }
+  - { key: "Status", value: "Live engagement · 2023→" }
 ---
